@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Iliiazbek Akhmedov
+  ~ Copyright (c) 2016.
+  -->
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="15dp">
+
+    <TextView
+        android:id="@+id/begDateLabel"
+        android:layout_width="120dp"
+        android:layout_height="40dp"
+        android:gravity="center_vertical"
+        android:padding="3dp"
+        android:text="@string/begin_date"
+        android:textSize="15sp" />
+
+    <Button
+        android:id="@+id/begDateButton"
+        android:layout_width="120dp"
+        android:layout_height="40dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:text="@string/choose_date" />
+
+    <TextView
+        android:id="@+id/sortLabel"
+        android:layout_width="120dp"
+        android:layout_height="40dp"
+        android:layout_below="@id/begDateLabel"
+        android:gravity="center_vertical"
+        android:padding="3dp"
+        android:text="@string/sort"
+        android:textSize="15sp" />
+
+    <Spinner
+        android:id="@+id/sortSpinner"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/begDateButton"
+        android:entries="@array/sort_entries" />
+
+
+    <TextView
+        android:id="@+id/chooseDeskLabel"
+        android:layout_width="120dp"
+        android:layout_height="40dp"
+        android:layout_below="@id/sortLabel"
+        android:gravity="center_vertical"
+        android:padding="3dp"
+        android:text="@string/categories"
+        android:textSize="15sp" />
+
+    <Button
+        android:id="@+id/desksButton"
+        android:layout_width="120dp"
+        android:layout_height="40dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/sortSpinner"
+        android:gravity="center"
+        android:text="@string/choose" />
+
+</RelativeLayout>

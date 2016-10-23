@@ -11,31 +11,24 @@
         android:id="@+id/imageView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scaleType="centerCrop"
-        android:contentDescription="@string/app_name" />
+        android:contentDescription="@string/app_name"
+        android:scaleType="centerCrop" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/gradient_overlay" />
 
     <TextView
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:textColor="@color/white"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="10dp"
+        android:maxEms="50"
+        android:ellipsize="end"
         android:padding="3dp"
-        android:text="@string/app_name" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_alignParentBottom="true"
-        android:background="@color/colorAccent" />
-
-
-    <LinearLayout
-        android:layout_width="1dp"
-        android:layout_height="match_parent"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:background="@color/colorAccent" />
+        android:text="@string/crazy_title"
+        android:textColor="@color/white" />
 
 </RelativeLayout>

@@ -13,4 +13,10 @@
         app:actionViewClass="android.support.v7.widget.SearchView"
         app:showAsAction="always" />
 
+    <item
+        android:id="@+id/action_advanced_search"
+        android:icon="@android:drawable/ic_menu_more"
+        android:title="@string/more"
+        app:showAsAction="ifRoom" />
+
 </menu>

@@ -62,4 +62,18 @@ public class News {
     public void setMultimedia(List<Multimedia> multimedia) {
         this.multimedia = multimedia;
     }
+
+    public Multimedia getBestImage() {
+
+        Multimedia res = null;
+        for (Multimedia candidate : multimedia) {
+            if (null == res && candidate.getType().equals("image")) {
+                res = candidate;
+            } else if (res != null && candidate.getWidth() > res.getWidth()) {
+                res = candidate;
+            }
+        }
+
+        return res;
+    }
 }

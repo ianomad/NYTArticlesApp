@@ -1,4 +1,19 @@
 <resources>
     <string name="app_name">NYTArticlesApp</string>
+    <string name="crazy_title">NYTArticlesAppNYTArticlesAppNYTArticlesAppNYTArticlesAppNYTArticlesAppNYTArticlesAppNYTArticlesAppNYTArticlesAppNYTArticlesAppNYTArticlesAppNYTArticlesAppNYTArticlesAppNYTArticlesApp</string>
+    <string name="app_title">New York Times</string>
     <string name="search">Search</string>
+    <string name="more">More</string>
+    <string name="loading">Loading...</string>
+    <string name="unexpected_error">Error while connecting. Try again.</string>
+    <string name="empty_results">No results found.</string>
+    <string name="begin_date">Begin Date</string>
+    <string name="choose_date">Choose</string>
+    <string name="sort">Sort</string>
+    <string name="advanced_search">Advanced search</string>
+    <string name="cancel">Cancel</string>
+    <string name="choose_category">Choose Category</string>
+    <string name="choose">Choose</string>
+    <string name="categories">Categories</string>
+    <string name="reset">Reset</string>
 </resources>

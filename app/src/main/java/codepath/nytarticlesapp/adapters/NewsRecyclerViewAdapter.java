@@ -33,6 +33,10 @@ public class NewsRecyclerViewAdapter extends RecyclerView.Adapter<NewsItemViewHo
         DaggerInjector.builder().build().inject(this);
     }
 
+    public void setNewsList(List<News> newsList) {
+        this.newsList = newsList;
+    }
+
     @Override
     public NewsItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.news_list_view_item, parent, false);
@@ -46,10 +50,10 @@ public class NewsRecyclerViewAdapter extends RecyclerView.Adapter<NewsItemViewHo
         Headline headline = news.getHeadline();
 
         vh.title.setText(null != headline ? headline.getMain() : "Missing");
-        List<Multimedia> multimedia = news.getMultimedia();
+        Multimedia newsBestImage = news.getBestImage();
 
-        if (!multimedia.isEmpty()) {
-            Glide.with(context).load("http://nytimes.com/" + multimedia.get(0).getUrl()).into(vh.imageView);
+        if (null != newsBestImage) {
+            Glide.with(context).load("http://nytimes.com/" + newsBestImage.getUrl()).into(vh.imageView);
         } else {
             Glide.with(context).load("http://beilersautorepair.mechanicnet.com/mobile/img/placeholder.png").into(vh.imageView);
         }
