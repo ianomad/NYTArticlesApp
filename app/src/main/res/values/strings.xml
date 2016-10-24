@@ -3,6 +3,8 @@
     <string name="crazy_title">NYTArticlesAppNYTArticlesAppNYTArticlesAppNYTArticlesAppNYTArticlesAppNYTArticlesAppNYTArticlesAppNYTArticlesAppNYTArticlesAppNYTArticlesAppNYTArticlesAppNYTArticlesAppNYTArticlesApp</string>
     <string name="app_title">New York Times</string>
     <string name="search">Search</string>
+    <string name="search_key">What are you searching?</string>
+    <string name="apply">Apply</string>
     <string name="more">More</string>
     <string name="loading">Loading...</string>
     <string name="unexpected_error">Error while connecting. Try again.</string>

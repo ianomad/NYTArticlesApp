@@ -5,7 +5,7 @@
 
 <resources>
     <string-array name="sort_entries">
-        <item>Newest First</item>
-        <item>Older First</item>
+        <item>Newest</item>
+        <item>Oldest</item>
     </string-array>
 </resources>

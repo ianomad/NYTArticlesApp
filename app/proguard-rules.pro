@@ -22,3 +22,4 @@
   public *;
 }
 -keepresourcexmlelements manifest/application/meta-data@value=GlideModule
+-dontwarn java.lang.invoke.*

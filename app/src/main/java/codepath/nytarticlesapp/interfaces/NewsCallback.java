@@ -6,11 +6,12 @@
 package codepath.nytarticlesapp.interfaces;
 
 import codepath.nytarticlesapp.models.NewsResponse;
+import codepath.nytarticlesapp.network.SearchRequest;
 
 public interface NewsCallback {
-    public void before();
+    public void before(SearchRequest searchRequest);
 
-    public void onSuccess(NewsResponse response);
+    public void onSuccess(NewsResponse response, SearchRequest searchRequest);
 
-    public void onError(Exception e, String message);
+    public void onError(Exception e, String message, SearchRequest searchRequest);
 }

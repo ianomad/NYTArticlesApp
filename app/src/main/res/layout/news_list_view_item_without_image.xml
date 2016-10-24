@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Iliiazbek Akhmedov
+  ~ Copyright (c) 2016.
+  -->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rootView"
+    android:layout_width="match_parent"
+    android:layout_height="200dp"
+    android:background="@color/colorPrimaryDark">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/gradient_overlay" />
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="10dp"
+        android:ellipsize="end"
+        android:maxEms="50"
+        android:padding="3dp"
+        android:text="@string/crazy_title"
+        android:textColor="@color/white" />
+
+
+    <LinearLayout
+        android:id="@+id/vdivider"
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:background="@color/transparent_black_10"
+        android:orientation="horizontal" />
+
+</RelativeLayout>

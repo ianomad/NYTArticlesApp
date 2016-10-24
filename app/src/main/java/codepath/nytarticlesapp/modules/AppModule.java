@@ -36,6 +36,6 @@ public class AppModule {
     @Provides
     @Singleton
     public Gson getGson() {
-        return new Gson();
+        return new GsonBuilder().create();
     }
 }

@@ -20,14 +20,14 @@ public class DeskDialogBuilder {
     private final HashSet<String> selectedItems;
     private final String[] items;
 
-    public DeskDialogBuilder(Context context, DesksChosen desksChosenCallback) {
+    DeskDialogBuilder(Context context, DesksChosen desksChosenCallback) {
         this.desksChosenCallback = desksChosenCallback;
         this.context = context;
         this.selectedItems = new HashSet<>();
         this.items = context.getResources().getStringArray(R.array.desk_values);
     }
 
-    public void showDialog() {
+    void showDialog() {
         AlertDialog dialog;
 
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
@@ -39,29 +39,17 @@ public class DeskDialogBuilder {
         }
 
         builder.setMultiChoiceItems(items, checkedItems,
-                new DialogInterface.OnMultiChoiceClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int indexSelected,
-                                        boolean isChecked) {
-                        if (isChecked) {
-                            selectedItems.add(items[indexSelected]);
-                        } else if (selectedItems.contains(items[indexSelected])) {
-                            selectedItems.remove(items[indexSelected]);
-                        }
+                (dialog1, indexSelected, isChecked) -> {
+                    if (isChecked) {
+                        selectedItems.add(items[indexSelected]);
+                    } else if (selectedItems.contains(items[indexSelected])) {
+                        selectedItems.remove(items[indexSelected]);
                     }
                 })
                 // Set the action buttons
-                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int id) {
-                        desksChosenCallback.desksChosen(selectedItems);
-                    }
-                })
-                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int id) {
+                .setPositiveButton("OK", (dialog12, id) -> desksChosenCallback.desksChosen(selectedItems))
+                .setNegativeButton("Cancel", (dialog13, id) -> {
 
-                    }
                 });
 
         dialog = builder.create();
@@ -69,6 +57,6 @@ public class DeskDialogBuilder {
     }
 
     public interface DesksChosen {
-        public void desksChosen(HashSet<String> chosenDesks);
+        void desksChosen(HashSet<String> chosenDesks);
     }
 }

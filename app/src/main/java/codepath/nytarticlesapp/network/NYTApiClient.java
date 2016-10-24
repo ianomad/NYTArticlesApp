@@ -7,10 +7,12 @@ package codepath.nytarticlesapp.network;
 
 import android.util.Log;
 
+import com.google.common.base.Joiner;
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Locale;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -36,13 +38,21 @@ public class NYTApiClient {
 
     private final String apiKey;
 
+    private Call currentSearchCall;
+    private SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd", Locale.US);
+
+
     @Inject
     public NYTApiClient(@Named("NY_API_KEY") String apiKey) {
         this.apiKey = apiKey;
     }
 
-    public Call searchNews(String searchKey, final NewsCallback newsCallback) {
-        newsCallback.before();
+    public void searchNews(final SearchRequest searchRequest, final NewsCallback newsCallback) {
+        if (null != currentSearchCall && !currentSearchCall.isExecuted()) {
+            currentSearchCall.cancel();
+        }
+
+        newsCallback.before(searchRequest);
 
         HttpUrl.Builder builder = new HttpUrl.Builder()
                 .scheme("https")
@@ -50,8 +60,25 @@ public class NYTApiClient {
                 .addPathSegments("svc/search/v2/articlesearch.json")
                 .addQueryParameter("api-key", apiKey);
 
-        if (null != searchKey) {
-            builder.addQueryParameter("q", searchKey);
+        if (null != searchRequest.getQ() && !searchRequest.getQ().isEmpty()) {
+            builder.addQueryParameter("q", searchRequest.getQ());
+        }
+
+        if (null != searchRequest.getSort()) {
+            builder.addQueryParameter("sort", searchRequest.getSort().toLowerCase());
+        }
+
+        if (null != searchRequest.getPage()) {
+            builder.addQueryParameter("page", String.valueOf(searchRequest.getPage()));
+        }
+
+        if (null != searchRequest.getCategories() && searchRequest.getCategories().length != 0) {
+            String newsDesks = Joiner.on(" ").skipNulls().join(searchRequest.getCategories());
+            builder.addQueryParameter("fq", "news_desk:(" + newsDesks + ")");
+        }
+
+        if (null != searchRequest.getDate()) {
+            builder.addQueryParameter("begin_date", sdf.format(searchRequest.getDate()));
         }
 
         HttpUrl url = builder.build();
@@ -59,30 +86,36 @@ public class NYTApiClient {
                 .url(url)
                 .build();
 
+        Log.d("DEBUG", url.toString());
+
         Call call = client.newCall(request);
+        currentSearchCall = call;
+
         call.enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 Log.e("Error", "Couldn't get response from server", e);
-                newsCallback.onError(e, null);
+                newsCallback.onError(e, null, searchRequest);
             }
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
+                String responseData = response.body().string();
                 if (!response.isSuccessful()) {
-                    Log.e("Error", "Couldn't get response from server");
-                    newsCallback.onError(new IOException("Unexpected code " + response), null);
+                    Log.e("Error", "Couldn't get response from server: " + responseData);
+                    newsCallback.onError(new IOException("Unexpected code " + response), null, searchRequest);
                     response.close();
                     return;
                 }
 
-                NewsResponse newsResponse = gson.fromJson(response.body().string(), NewsResponse.class);
+                NewsResponse newsResponse = gson.fromJson(responseData, NewsResponse.class);
                 response.close();
-                newsCallback.onSuccess(newsResponse);
+
+                Log.d("Debug", gson.toJson(newsResponse));
+
+                newsCallback.onSuccess(newsResponse, searchRequest);
             }
         });
-
-        return call;
     }
 
 }

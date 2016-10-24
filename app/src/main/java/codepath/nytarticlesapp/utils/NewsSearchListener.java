@@ -6,59 +6,38 @@
 package codepath.nytarticlesapp.utils;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.widget.SearchView;
 
-import codepath.nytarticlesapp.interfaces.NewsCallback;
-import codepath.nytarticlesapp.models.NewsResponse;
-import codepath.nytarticlesapp.network.NYTApiClient;
-import okhttp3.Call;
+import org.parceler.Parcels;
+
+import codepath.nytarticlesapp.network.SearchRequest;
 
 public class NewsSearchListener implements SearchView.OnQueryTextListener {
 
     private final Activity activity;
-    private final NYTApiClient client;
-    private final NewsCallback newsCallback;
-    private Call currentSearchCall;
+    private final SearchView searchView;
 
-    public NewsSearchListener(Activity activity, NYTApiClient client, NewsCallback newsCallback) {
+    public NewsSearchListener(Activity activity, SearchView searchView) {
         this.activity = activity;
-        this.client = client;
-        this.newsCallback = newsCallback;
+        this.searchView = searchView;
     }
 
     @Override
     public boolean onQueryTextSubmit(String query) {
-        if (null != currentSearchCall && !currentSearchCall.isExecuted()) {
-            currentSearchCall.cancel();
-        }
+        // workaround to avoid issues with some emulators and keyboard devices firing twice if a keyboard enter is used
+        // see https://code.google.com/p/android/issues/detail?id=24599
+        searchView.clearFocus();
 
-        currentSearchCall = client.searchNews(query, new NewsCallback() {
-            @Override
-            public void before() {
-                newsCallback.before();
-            }
+        SearchRequest request = new SearchRequest();
+        request.setQ(query);
+        request.setPage(1);
 
-            @Override
-            public void onSuccess(final NewsResponse response) {
-                activity.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        newsCallback.onSuccess(response);
-                    }
-                });
-            }
+        Intent searchRequestIntent = new Intent(Constants.SEARCH_REQUEST_CREATED);
+        searchRequestIntent.putExtra("data", Parcels.wrap(request));
 
-            @Override
-            public void onError(final Exception e, final String message) {
-                activity.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        newsCallback.onError(e, message);
-                    }
-                });
-            }
-        });
-
+        LocalBroadcastManager.getInstance(activity).sendBroadcast(searchRequestIntent);
         return true;
     }
 

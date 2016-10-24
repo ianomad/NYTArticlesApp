@@ -8,8 +8,16 @@
     android:layout_height="wrap_content"
     android:padding="15dp">
 
+    <EditText
+        android:id="@+id/searchKeyEditText"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:maxLines="1"
+        android:hint="@string/search_key"/>
+
     <TextView
         android:id="@+id/begDateLabel"
+        android:layout_below="@id/searchKeyEditText"
         android:layout_width="120dp"
         android:layout_height="40dp"
         android:gravity="center_vertical"
@@ -19,6 +27,7 @@
 
     <Button
         android:id="@+id/begDateButton"
+        android:layout_below="@id/searchKeyEditText"
         android:layout_width="120dp"
         android:layout_height="40dp"
         android:layout_alignParentEnd="true"

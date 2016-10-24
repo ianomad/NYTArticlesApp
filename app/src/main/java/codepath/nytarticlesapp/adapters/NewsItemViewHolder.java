@@ -5,6 +5,7 @@
 
 package codepath.nytarticlesapp.adapters;
 
+import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
@@ -20,7 +21,14 @@ public class NewsItemViewHolder extends RecyclerView.ViewHolder {
     TextView title;
 
     @BindView(R.id.imageView)
+    @Nullable
     ImageView imageView;
+
+    @BindView(R.id.vdivider)
+    View divider;
+
+    @BindView(R.id.rootView)
+    View rootView;
 
     public NewsItemViewHolder(View itemView) {
         super(itemView);
